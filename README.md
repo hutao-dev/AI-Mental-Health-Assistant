@@ -1,8 +1,9 @@
-[README.md](https://github.com/user-attachments/files/32561144/README.md)# 宁渡 · AI 心理健康助手（前端）
+[README.md](https://github.com/user-attachments/files/32565015/README.md)
+# 宁渡 · AI 心理健康助手（前端）
 
 > Vue 3 + Spring Boot 前后端分离的心理健康 AI 咨询平台 —— SSE 流式对话 · 大模型接入 · JWT 认证 · 数据可视化
 
-本项目为「宁渡 AI 心理助手」的**前端部分**（Vue 3），配套后端为 Spring Boot 项目（`../code/ai-springboot`）。AI 回复采用 **SSE 流式传输**，逐字呈现，体验接近 ChatGPT；对话过程实时分析用户情绪，动态展示情绪评分与治愈建议。
+本项目为「宁渡 AI 心理助手」的**前端部分**（Vue 3），配套后端为 Spring Boot 独立仓库：[hutao-dev/ai-springboot](https://github.com/hutao-dev/ai-springboot)。AI 回复采用 **SSE 流式传输**，逐字呈现，体验接近 ChatGPT；对话过程实时分析用户情绪，动态展示情绪评分与治愈建议。
 
 ---
 
@@ -57,7 +58,9 @@
   - JWT 无状态认证 + BCrypt 密码加密
   - 路由前置守卫按 `userType`（1=普通用户 / 2=管理员）控制前台/后台访问权限
 
-### 前端已完成 / 后端开发中 🚧
+### 前端已完成 / 后端接口开发中 🚧
+
+> 以下模块前端 UI 已全部完成，后端接口逐步开发中，进度以后端仓库为准：[ai-springboot](https://github.com/hutao-dev/ai-springboot)
 
 - **情绪分析（情绪花园）**：对话过程实时展示情绪评分、风险等级、治愈建议（前端 UI 已完成，后端接口开发中，数据库字段已预留）
 - **情绪日记**：10 级情绪评分 + 8 种情绪图标、触发因素、睡眠质量、压力水平记录
@@ -84,7 +87,7 @@
 | Sass | ^1.97.2 | CSS 预处理器 |
 | dayjs | ^1.11.21 | 日期处理 |
 
-### 后端（配套项目 `../code/ai-springboot`）
+### 后端（配套项目 [ai-springboot](https://github.com/hutao-dev/ai-springboot)）
 
 | 技术 | 版本 | 说明 |
 |------|------|------|
@@ -150,9 +153,11 @@ ai-vue/
 ### 启动后端
 
 ```bash
-cd ../code/ai-springboot
+# 克隆后端仓库（或使用本地已有代码）
+git clone https://github.com/hutao-dev/ai-springboot.git
+cd ai-springboot
 
-# 1. 修改 application.yml：数据库连接 + spring.ai.openai.api-key（建议环境变量注入）
+# 1. 参照 application-example.yml 配置 application.yml：数据库连接 + spring.ai.openai.api-key（建议环境变量注入）
 # 2. 创建数据库 mental_health_assistant 并建表（详见后端 README）
 # 3. 启动（默认端口 1236）
 mvn spring-boot:run
@@ -319,7 +324,7 @@ router.beforeEach((to, from, next) => {
 | 数据分析 | `/api/data-analytics/overview` | 看板统计数据 |
 | 文件上传 | `/api/file/upload` | 封面图片等 |
 
-> 完整后端说明（数据库设计、配置细节、已知限制）见 `../code/ai-springboot/README.md`。
+> 完整后端说明（数据库设计、配置细节、已知限制）见 [ai-springboot 仓库 README](https://github.com/hutao-dev/ai-springboot)。
 
 ---
 
