@@ -1,6 +1,7 @@
 <template>
     <div class="dashboard-container">
         <el-row :gutter="20">
+          <!-- 默认 24 列 4 列 -->
             <el-col :span="6">
                 <el-card>
                     <div v-if="aiData.systemOverview" class="card-content">
@@ -126,7 +127,6 @@ const iconUrl4 = new URL('@/assets/images/smile.png', import.meta.url).href
 
 const aiData = ref({})
 
-
 // 初始化情绪趋势图表
 const initCharts = () => {
     initEmtionChart()
@@ -170,6 +170,7 @@ const initEmtionChart = () => {
                 color: '#2d3436'
             }
         },
+        // 图例
         legend: {
             data: ['平均情绪评分', '记录数量'],
             top: 40
@@ -379,67 +380,67 @@ const initUserActivityChart = () => {
     // 获取数据
     const activityData = aiData.value.userActivity
     const option = {
-  title: {
-    text: '用户活跃度趋势',
-    textStyle: {
-      fontSize: 16,
-      fontWeight: 600,
-      color: '#2d3436'
+    title: {
+      text: '用户活跃度趋势',
+      textStyle: {
+        fontSize: 16,
+        fontWeight: 600,
+        color: '#2d3436'
+      },
+      left: 'center',
+      top: 10
     },
-    left: 'center',
-    top: 10
-  },
-  tooltip: {
-    trigger: 'axis',
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    borderColor: '#fab1a0',
-    borderWidth: 1,
-    textStyle: {
-      color: '#2d3436'
-    }
-  },
-  legend: {
-    data: ['活跃用户', '新增用户', '日记用户', '咨询用户'],
-    top: 40,
-    textStyle: {
-      color: '#636e72'
-    }
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    top: 80,
-    containLabel: true
-  },
-  xAxis: {
-    type: 'category',
-    data: activityData.map(item => item.date),
-    axisLine: {
-      lineStyle: {
-        color: 'rgba(244, 162, 97, 0.3)'
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderColor: '#fab1a0',
+      borderWidth: 1,
+      textStyle: {
+        color: '#2d3436'
       }
     },
-    axisLabel: {
-      color: '#636e72'
-    }
-  },
-  yAxis: {
-    type: 'value',
-    axisLabel: {
-      color: '#636e72'
-    },
-    axisLine: {
-      lineStyle: {
-        color: 'rgba(244, 162, 97, 0.3)'
+    legend: {
+      data: ['活跃用户', '新增用户', '日记用户', '咨询用户'],
+      top: 40,
+      textStyle: {
+        color: '#636e72'
       }
     },
-    splitLine: {
-      lineStyle: {
-        color: 'rgba(244, 162, 97, 0.1)'
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      top: 80,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: activityData.map(item => item.date),
+      axisLine: {
+        lineStyle: {
+          color: 'rgba(244, 162, 97, 0.3)'
+        }
+      },
+      axisLabel: {
+        color: '#636e72'
       }
-    }
-  },
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        color: '#636e72'
+      },
+      axisLine: {
+        lineStyle: {
+          color: 'rgba(244, 162, 97, 0.3)'
+        }
+      },
+      splitLine: {
+        lineStyle: {
+          color: 'rgba(244, 162, 97, 0.1)'
+        }
+      }
+    },
   series: [
     {
       name: '活跃用户',
@@ -522,6 +523,20 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .dashboard-container {
+    // 顶部四个卡片行：强制同排等高，防止缩屏时高度不一
+    > .el-row:first-child {
+      align-items: stretch;
+      
+      .el-col {
+        display: flex;
+      }
+      
+      .el-card {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    
     .card-content {
       display: flex;
       align-items: center;
@@ -556,11 +571,13 @@ onMounted(() => {
           font-size: 24px;
           font-weight: 700;
           color: #2c3e50;
-          margin-bottom: 4px
+          margin-bottom: 4px;
+          white-space: nowrap; // 防止数字换行导致卡片高度不同
         }
         .subtitle-title {
           font-size: 12px;
           color: #95a5a6;
+          white-space: nowrap; // 防止副标题换行导致卡片高度不同
         }
       }
     }

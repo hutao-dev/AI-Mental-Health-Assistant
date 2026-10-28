@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="title">
-            <div class="back-home">
+            <div class="back-home" @click="goHome">
                 <el-icon><Back /></el-icon>
                 <span>返回首页</span>
             </div>
@@ -17,7 +17,7 @@
             :rules="rules"
             label-position="top"
         >
-                <el-form-item label="用户名和邮箱" prop="username">
+                <el-form-item label="用户名或邮箱" prop="username">
                     <el-input v-model="formData.username" size="large" placeholder="请输入用户名" />
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
@@ -49,12 +49,24 @@ const rules = reactive({
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' }
     ],
+    "email": [
+        { required: true, message: '请输入邮箱', trigger: 'blur' }
+    ],
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' }
+    ],
+    confirmPassword: [
+        { required: true, message: '请确认密码', trigger: 'blur' }
     ]
 })
 // 登录
 const router = useRouter()
+
+// 返回首页
+const goHome = () => {
+    router.push('/')
+}
+
 const submitForm = async (formEl) => {
     if (!formEl)  return
     await formEl.validate(async (valid, fields) => {
@@ -106,6 +118,14 @@ const submitForm = async (formEl) => {
         .title {
             .back-home {
                 margin-bottom: 60px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                transition: color 0.2s;
+                &:hover {
+                    color: #409eff;
+                }
             }
             .title-text {
                 text-align: center;

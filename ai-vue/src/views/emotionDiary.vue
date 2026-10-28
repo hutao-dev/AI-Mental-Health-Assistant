@@ -106,6 +106,7 @@ const selectEmotion = (emotion) => {
 
 const diaryForm = reactive({
     diaryDate: dayjs().format('YYYY-MM-DD'),
+    moodScore: null,
     dominantEmotion: '',
     emotionTriggers: '',
     diaryContent: '',
@@ -118,6 +119,7 @@ const diaryForm = reactive({
 const resetForm = () => {
     Object.assign(diaryForm, {
         diaryDate: dayjs().format('YYYY-MM-DD'),
+        moodScore: null,
         dominantEmotion: '',
         emotionTriggers: '',
         diaryContent: '',

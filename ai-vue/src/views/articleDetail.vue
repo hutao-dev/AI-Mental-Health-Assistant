@@ -5,6 +5,10 @@
                 <el-image :src="iconUrl" style="width: 60px;height: 60px"></el-image>
                 <h1>知识文章详情</h1>
             </div>
+            <el-button class="back-btn" @click="goBack">
+                <el-icon><ArrowLeft /></el-icon>
+                返回知识库
+            </el-button>
         </div>
         <div class="content">
             <div class="diary-card">
@@ -35,7 +39,7 @@
                 <div class="title">正文内容</div>
                 <div class="cotent-wrapper" v-html="formatContent(articleDetail.content)"></div>
                 <div class="tags-content" v-if="articleDetail.tags && articleDetail.tagArray.length">
-                    <h4 class="tags-list"> 相关标签 </h4>
+                    <h4 class="tags-title"> 相关标签 </h4>
                     <el-tag v-for="tag in articleDetail.tagArray" :key="tag" type="info" effect="light" class="tag-item">{{ tag }}</el-tag>
                 </div>
             </div>
@@ -45,9 +49,10 @@
 
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
-import { Avatar, Platform, List } from '@element-plus/icons-vue'
+import { Avatar, Platform, List, ArrowLeft } from '@element-plus/icons-vue'
 import { getKnowledgeDetail } from '@/api/frontend'
 import { dayjs } from 'element-plus'
+import router from '@/router'
 
 const iconUrl = new URL('@/assets/images/book.png', import.meta.url).href
 
@@ -57,10 +62,13 @@ const props = defineProps({
 
 const articleDetail = ref({})
 
+const goBack = () => {
+    router.push('/knowledge')
+}
+
 const formatContent = (content) => {
   if (!content) return ''
   
-  // 基本的HTML清理和格式化
   let formatted = content
       .replace(/\n/g, '<br>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -70,7 +78,6 @@ const formatContent = (content) => {
 }
 
 onMounted(() => {
-    // 获取知识文章详情
     getKnowledgeDetail(props.id).then(res => {
         articleDetail.value = res
     })
@@ -94,10 +101,23 @@ onMounted(() => {
         background: linear-gradient(135deg, #f59e0b 0%, #8b5cf6 100%);
         color: white;
         padding: 48px;
+        position: relative;
         .header-content {
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+        .back-btn {
+            position: absolute;
+            right: 48px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            &:hover {
+                background: rgba(255, 255, 255, 0.35);
+            }
         }
     }
     .content {
@@ -175,16 +195,15 @@ onMounted(() => {
                 margin-top: 20px;
                 padding-top: 15px;
                 border-top: 1px solid #e5e7eb;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
                 .tags-title {
+                    width: 100%;
                     margin-bottom: 10px;
                     font-size: 14px;
                     font-weight: 600;
                     color: #374151;
-                }
-                .tags-list {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 10px;
                 }
             }
         }

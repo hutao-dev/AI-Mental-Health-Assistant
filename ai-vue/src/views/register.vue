@@ -8,7 +8,7 @@
         </div>
         <div class="form-container">
             <el-form ref="submitFormRef" label-position="top" :model="formData" :rules="rules">
-                <el-form-item label="用户名" prop="username">
+                <el-form-item label="用户名或邮箱" prop="username">
                     <el-input v-model="formData.username" placeholder="请输入用户名" size="large"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">

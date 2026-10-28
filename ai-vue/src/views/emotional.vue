@@ -67,7 +67,7 @@
                         <el-rate v-model="currentDetail.moodScore" :max="10" disabled></el-rate>
                     </el-descriptions-item>
                     <el-descriptions-item label="主要情绪">
-                        <el-tag type="info" :type="getEmotionTagType(currentDetail.dominantEmotion)">{{ currentDetail.dominantEmotion || '-' }}</el-tag>
+                        <el-tag :type="getEmotionTagType(currentDetail.dominantEmotion)">{{ currentDetail.dominantEmotion || '-' }}</el-tag>
                     </el-descriptions-item>
                     <el-descriptions-item label="睡眠质量">{{ currentDetail.sleepQuality || '-' }}/5</el-descriptions-item>
                     <el-descriptions-item label="压力水平">{{ currentDetail.stressLevel || '-' }}/5</el-descriptions-item>
@@ -83,7 +83,7 @@
             <div class="detail-section">
                 <h4>AI情绪分析结果</h4>
                 <div class="ai-analysis-result">
-                    <el-descriptions :column="2" border>
+                  <el-descriptions :column="2" border>
                     <el-descriptions-item label="主要情绪">
                         <el-tag :type="getAiEmotionTagType(aiData.primaryEmotion)">{{ aiData.primaryEmotion }}</el-tag>
                     </el-descriptions-item>

@@ -6,6 +6,7 @@
             </template>
         </PageHead>
         <TableSearch :formItem="formItem" @search="handleSearch"></TableSearch>
+        <!-- 表格数据 -->
         <el-table :data="tableData" style="width: 100%; margin-top: 25px;">
             <el-table-column label="文章标题" width="200px" fixed="left">
                 <template #default="scope">
@@ -25,7 +26,7 @@
             </el-table-column>
             <el-table-column prop="authorName" label="作者" width="150px"></el-table-column>
             <el-table-column prop="readCount" label="阅读量" width="150px"></el-table-column>
-            <el-table-column prop="updateAt" label="发布时间" width="150px"></el-table-column>
+            <el-table-column prop="publishedAt" label="发布时间" width="150px"></el-table-column>
              <el-table-column label="操作" width="240px" fixed="right">
                 <template #default="scope">
                     <el-button text @click="handleEdit(scope.row)" type="primary" size="mini">编辑</el-button>
@@ -42,7 +43,7 @@
         layout="prev, pager, next" 
         :total="pagination.total"
     />
-    <ArticlaDialog v-model:modelValue="dialogVisible" :article="currentArticle" :categoryies="categoryies" @success="handleSuccess"></ArticlaDialog>
+    <ArticlaDialog v-model:modelValue="dialogVisible" :article="currentArticle" :categories="categories" @success="handleSuccess"></ArticlaDialog>
     </div>
 </template>
 <script setup>
@@ -81,7 +82,7 @@ const handleSearch = async (formData) => {
         ...pagination,
         ...formData
     }
-    const { records,total } = await articlePage(params)
+    const { records, total } = await articlePage(params)
     tableData.value = records
     pagination.total = total
 }    
@@ -94,7 +95,7 @@ const handleChange = (page) => {
 // 分类映射
 const categoryMap = reactive({})
 // 分类列表
-const categoryies = ref([])
+const categories = ref([])
 
 // 列表数据
 const tableData = ref([])
@@ -175,15 +176,15 @@ const handleDelete = (row) => {
 onMounted(async () => {
     const data = await categoryTree()
 
-    categoryies.value = data.map(item => {
+    categories.value = data.map(item => {
         categoryMap[item.id] = item.categoryName
         return {
             label: item.categoryName,
             value: item.id
         }
     })
-    console.log(categoryies.value, '分类列表')
-    formItem[1].options = categoryies.value
+    console.log(categories.value, '分类列表')
+    formItem[1].options = categories.value
 
     // 获取列表
     handleSearch({})

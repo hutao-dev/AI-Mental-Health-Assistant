@@ -3,7 +3,7 @@ import service from '@/utils/request'
 export const login = (data) => {
     return service.post('/user/login', data)
 }
-
+// 获取知识分类树
 export const categoryTree = () => {
     return service.get('/knowledge/category/tree')
 }

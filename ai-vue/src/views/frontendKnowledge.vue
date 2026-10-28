@@ -50,15 +50,15 @@
             </div>
         </div>
         <!-- 分页组件 -->
-            <div class="pagination-wrapper">
-                <el-pagination
-                    style="margin-top: 25px"
-                    :page-size="pagination.size"
-                    :current-page="pagination.currentPage"
-                    layout="prev, pager, next"
-                    :total="pagination.total"
-                    @change="handleChange" />
-            </div>
+        <div class="pagination-wrapper">
+            <el-pagination
+                style="margin-top: 25px"
+                :page-size="pagination.size"
+                :current-page="pagination.currentPage"
+                layout="prev, pager, next"
+                :total="pagination.total"
+                @current-change="handleChange" />
+        </div>
     </div>
 </template>
 <script setup>
@@ -159,7 +159,7 @@ onMounted(() => {
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             padding: 15px;
-            height: 400px;
+            align-self: flex-start;
             .section-title {
                 font-size: 12;
                 font-weight: 600;

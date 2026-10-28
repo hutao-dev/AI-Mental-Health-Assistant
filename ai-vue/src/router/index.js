@@ -5,6 +5,7 @@ import AuthLayout from '@/components/AuthLayout.vue'
 import FrontendLayout from '@/components/FrontendLayout.vue'
 
 // 路由配置
+// 后台管理路由配置
 const backendRoutes = [
 //   {
 //     path: '/',
@@ -49,6 +50,7 @@ const backendRoutes = [
         }
     ]
   },
+//   用户鉴权部分
   {
     path: '/auth',
     component: AuthLayout,
@@ -71,7 +73,7 @@ const backendRoutes = [
   }
 ]
 
-// 前端路由配置
+// 前台路由配置
 const frontendRoutes = [
     {
         path: '/',
@@ -123,6 +125,7 @@ router.beforeEach((to, from, next) => {
         } else if (userInfo.userType == 1) {
             // 用户端账号只能访问前台路由
             if (to.path.startsWith('/back') || to.path.startsWith('/auth')) {
+                // 如果是访问到后台路由，重定向到首页
                 next('/')
             } else {
                 next()

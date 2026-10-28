@@ -52,7 +52,7 @@
             <div class="messages-header">
                 <h4>对话记录</h4>
             </div>
-            <div class="messages-list">
+            <div class="messages-list" v-loading="loadingMessages">
                 <div v-for="message in sessionMessages" :key="message.id" class="message-item" :class="message.senderType === 1 ? 'user-message' : 'ai-message'">
                     <div class="message-header">
                         <span class="sender">{{message.senderType === 1 ? '用户' : 'AI助手'}}</span>
@@ -91,9 +91,9 @@ const viewSessionDetail = async (row) => {
     loadingMessages.value = true
     showDetailDialog.value = true
     getSessionDetail(row.id).then(res => {
-    loadingMessages.value = false
-    sessionMessages.value = res
-    sessionDetail.value = row
+      loadingMessages.value = false
+      sessionMessages.value = res
+      sessionDetail.value = row
     })
 }
 

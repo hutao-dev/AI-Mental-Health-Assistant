@@ -11,7 +11,7 @@
         </el-form-item>
         <el-form-item label="所属分类" prop="categoryId">
             <el-select v-model="formData.categoryId" placeholder="请选择所属分类" clearable>
-                <el-option v-for="item in props.categoryies" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                <el-option v-for="item in props.categories" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="文章摘要" prop="summary">
@@ -76,7 +76,7 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    categoryies: {
+    categories: {
         type: Array,
         default: () => []
     },
@@ -99,6 +99,7 @@ const dialogVisible = computed({
 
 const isEdit = computed(() => !!props.article?.id)
 
+// 监听文章变化
 watch(() => props.article, (newVal) => {
     if (newVal) {
         nextTick(() => {

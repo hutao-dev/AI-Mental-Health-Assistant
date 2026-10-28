@@ -4,16 +4,16 @@
             <template v-for="item in formItemAttrs" :key="item.prop">
             <el-col v-bind="item.col">
                 <el-form-item :label="item.label" :prop="item.prop">
-                <component v-model="formData[item.prop]" :is="isComp(item.comp)" :placeholder="item.placeholder">
-                    <template v-if="item.comp === 'select'">
-                        <el-option label="全部" value=""></el-option>
-                        <el-option v-for="opt in item.options" 
-                        :key="opt.value" 
-                        :label="opt.label" 
-                        :value="opt.value"></el-option>
-                    </template>
-                </component>
-            </el-form-item>
+                    <component v-model="formData[item.prop]" :is="isComp(item.comp)" :placeholder="item.placeholder">
+                        <template v-if="item.comp === 'select'">
+                            <el-option label="全部" value=""></el-option>
+                            <el-option v-for="opt in item.options" 
+                            :key="opt.value" 
+                            :label="opt.label" 
+                            :value="opt.value"></el-option>
+                        </template>
+                    </component>
+                </el-form-item>
             </el-col> 
         </template>
         </el-row>
@@ -37,12 +37,13 @@ const emit = defineEmits(['search'])
 const formItemAttrs = computed(() => {
     const { formItem } = props
     formItem.forEach(item => {
-        item.col = { xs:24, sm:12, md:8, lg:6, xl:6 }
+        item.col = { xs:24, sm:12, md:8, lg:6, xl:6 } // 一行是24个网格，每个网格是12个单位
     })
     return formItem
 })
 
 const ruleFormRef = ref()
+// 表单数据
 const formData = reactive({})
 const isComp = (comp) => {
     return{
@@ -64,5 +65,8 @@ const handleReset = (formEl) => {
 <style scoped lang="scss">
 .btn-row {
     margin-top: 16px;
+}
+:deep(.el-input__wrapper .el-input__inner) {
+    transform: translateY(2px);
 }
 </style>
